@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_about"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.khushi.win10.cottagebooking.AboutActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Terms and Service"
+        android:textSize="20dp"
+        android:gravity="center"
+        android:textStyle="bold"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp"
+        android:text="This app provides accommodations to rent with guests seeking to rent such accommodations, Which services are accessible with internate and an application for any android mobile devices. By using the application, you agree to comply with and bound by the terms and condition of these Terms and Service.
+        HOW THE APPLICATION AND SERVICE...
+ The Application and service can be used to facilitate the listing and booking of residential and other properties. Such accommodation are included in listing on application if you wish to book an accomodation , you must first register or create account in app. As stated above, cottage claimant makes available a platform with related technology for guests to meet online and arrange for booking of accommodation."/>
+
+</RelativeLayout>

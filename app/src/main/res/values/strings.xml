@@ -1,0 +1,48 @@
+<resources>
+    <string name="app_name">Cottage Booking</string>
+    <string-array name="name"></string-array>
+    <string-array name="location"></string-array>
+    <string-array name="rating"></string-array>
+    <string-array name="rank"></string-array>
+    <string-array name="price"></string-array>
+    <string-array name="title"></string-array>
+
+    <string-array name="Select_Type">
+        <item>Select Type</item>
+        <item>admin</item>
+        <item>user</item>
+    </string-array>
+
+    <string-array name="Select_Question">
+        <item>Select Question</item>
+        <item>What is your pet name?</item>
+        <item>What is your hobby?</item>
+        <item>What is your mother name?</item>
+        <item>What is your favorite color?</item>
+    </string-array>
+
+    <string-array name="Select_Category">
+        <item>Select Category</item>
+        <item>3 star</item>
+        <item>5 star</item>
+        <item>7 star</item>
+    </string-array>
+
+    <string-array name="Select_State">
+        <item>Select State</item>
+    </string-array>
+
+    <string-array name="Expiry_month">
+        <item>Expiry month</item>
+    </string-array>
+
+    <string-array name="Expiry_year">
+        <item>Expiry year</item>
+    </string-array>
+    <string name="title_activity_home">HomeActivity</string>
+    <string name="title_activity_property_news">PropertynewsActivity</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="title_activity_search_by_category">SearchByCategory</string>
+    <string name="action_settings">Setting</string>
+</resources>

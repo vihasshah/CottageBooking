@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_setting"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.khushi.win10.cottagebooking.SettingActivity">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="About"
+        android:textSize="20dp"
+        android:id="@+id/setting_btn_about"
+        android:background="@android:color/transparent"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="60dp"
+        android:background="@android:color/darker_gray"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Feedback/Review"
+        android:layout_marginTop="60dp"
+        android:textSize="20dp"
+        android:id="@+id/setting_btn_feedback"
+        android:background="@android:color/transparent"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="120dp"
+        android:background="@android:color/darker_gray"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="logout"
+        android:textSize="20dp"
+        android:layout_marginTop="120dp"
+        android:id="@+id/setting_btn_logout"
+        android:background="@android:color/transparent"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="180dp"
+        android:background="@android:color/darker_gray"/>
+
+</RelativeLayout>

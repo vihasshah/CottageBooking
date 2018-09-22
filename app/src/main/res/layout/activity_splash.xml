@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_splash"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context="com.khushi.win10.cottagebooking.SplashActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/logo"
+        android:scaleType="fitStart">
+
+    </ImageView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:layout_marginTop="230dp"
+        android:text="Cottages"
+        android:textStyle="bold"
+        android:textSize="70dp"
+        android:textColor="@color/colorPrimary"
+        android:fontFamily="cursive"
+        android:gravity="center"/>
+</RelativeLayout>

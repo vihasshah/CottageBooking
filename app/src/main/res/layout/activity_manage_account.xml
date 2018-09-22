@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_manage_account"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.khushi.win10.cottagebooking.ManageAccountActivity">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Update Account"
+        android:textSize="20dp"
+        android:background="@android:color/transparent"
+        android:id="@+id/manageaccount_btn_updateacount"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="60dp"
+        android:background="@android:color/darker_gray"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Change Password"
+        android:textSize="20dp"
+        android:layout_marginTop="60dp"
+        android:background="@android:color/transparent"
+        android:id="@+id/manageaccount_btn_changepassword"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="120dp"
+        android:background="@android:color/darker_gray"/>
+</RelativeLayout>

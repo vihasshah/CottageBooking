@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_search"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.khushi.win10.cottagebooking.SearchActivity">
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="search by category"
+        android:textSize="20dp"
+        android:id="@+id/search_btn_category"
+        android:background="@android:color/transparent"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="60dp"
+        android:background="@android:color/darker_gray"/>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="search by place"
+        android:layout_marginTop="60dp"
+        android:textSize="20dp"
+        android:id="@+id/search_btn_place"
+        android:background="@android:color/transparent"/>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="120dp"
+        android:background="@android:color/darker_gray"/>
+
+</RelativeLayout>

@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_rent_detail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.khushi.win10.cottagebooking.RentDetailActivity">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@drawable/mybg1"
+        android:scaleType="fitXY"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ownername :"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/rent_detail_ownername"
+            android:layout_marginTop="20dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="name"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/rent_detail_name"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Address :"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/rent_detail_cottageaddress"
+            android:layout_marginTop="20dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="address"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/rent_detail_address"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Category :"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/rent_detail_cottagecategory"
+            android:layout_marginTop="20dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="category"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/rent_detail_category"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Email :"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/rent_detail_owneremail"
+            android:layout_marginTop="20dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="name"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/rent_detail_email"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contact Number :"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/rent_detail_ownernumber"
+            android:layout_marginTop="20dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="number"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/rent_detail_number"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estimated Price :"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/rent_detail_cottageprice"
+            android:layout_marginTop="20dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="price"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/rent_detail_price"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Start Date :"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/rent_detail_startdate"
+            android:layout_marginTop="20dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="date1"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/rent_detail_date1"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="End Date :"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/rent_detail_enddate"
+            android:layout_marginTop="20dp" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="date2"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:id="@+id/rent_detail_date2"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="AC"
+            android:layout_marginTop="20dp"
+            android:id="@+id/rent_detail_ac"/>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="food"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/rent_detail_food"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pool"
+            android:layout_marginTop="20dp"
+            android:id="@+id/rent_detail_pool"/>
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Wifi"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/rent_detail_wifi"/>
+    </LinearLayout>
+
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:text="Book"
+        android:id="@+id/btn_book"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        style="@style/LoginButton"/>
+</LinearLayout>
+</ScrollView>
