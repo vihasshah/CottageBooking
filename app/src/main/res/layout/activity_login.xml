@@ -4,79 +4,115 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimaryDark"
     tools:context="com.khushi.win10.cottagebooking.LoginActivity">
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/mybg1"
-        android:scaleType="centerCrop" />
+    <!--<ImageView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent"-->
+        <!--android:src="@drawable/mybg1"-->
+        <!--android:scaleType="centerCrop" />-->
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Login"
-        android:textSize="40sp"
-        android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_horizontal_margin"
-        android:gravity="center_horizontal"
-        android:textColor="@android:color/white"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Sign Up"
-        android:textSize="30dp"
+        android:text="Create Account"
+        android:textSize="16dp"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
-        android:textStyle="bold"
         android:gravity="right"
         android:textColor="@android:color/white"
         android:id="@+id/main_tv_signup"/>
+
+    <View
+        android:layout_width="150dp"
+        android:layout_height="2dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="20dp"
+        android:layout_below="@id/main_tv_signup"
+        android:layout_alignParentRight="true"
+        android:id="@+id/create_account_border"
+        android:background="#fff"></View>
+
+    <ImageView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:src="@drawable/logo"
+        android:layout_above="@id/login_input_block"
+        android:layout_below="@id/create_account_border"
+        android:layout_centerHorizontal="true"/>
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:gravity="center">
+        android:id="@+id/login_input_block"
+        android:layout_alignParentBottom="true">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textSize="30dp"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:textColor="@android:color/white"/>
+
+        <View
+            android:layout_width="100dp"
+            android:layout_height="2dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="20dp"
+            android:background="#fff"></View>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Username"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginTop="8dp"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="8dp"
             style="@style/LoginEditText"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/main_et_username"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_marginTop="8dp"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginBottom="8dp"
             android:inputType="textPassword"
             style="@style/LoginEditText"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/main_et_password"/>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Login"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"
-            android:layout_marginBottom="@dimen/activity_vertical_margin"
-            style="@style/LoginButton"
-            android:id="@+id/main_btn_login"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Forgot Password?"
             android:id="@+id/main_tv_forgotpassword"
-            android:gravity="center_horizontal"
-            android:textSize="20dp"
-            android:textStyle="bold"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@android:color/white"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Login"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_marginBottom="8dp"
+            style="@style/LoginButton"
+            android:id="@+id/main_btn_login"/>
+
 
     </LinearLayout>
 </RelativeLayout>
