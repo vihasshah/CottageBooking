@@ -2,6 +2,8 @@ package com.khushi.win10.cottagebooking;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,12 +14,23 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.khushi.win10.cottagebooking.Helpers.Utils;
+import com.khushi.win10.cottagebooking.Model.LoginModel;
+import com.khushi.win10.cottagebooking.Webservice.APICall;
+import com.khushi.win10.cottagebooking.Webservice.Callback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class LoginActivity extends AppCompatActivity {
     private TextView tvsignup;
     private Button btnlogin;
     private TextView tvforgotpassword;
     private EditText etusername,etpass;
-    View dialogView;
+    private View dialogView;
+    private AsyncTask<Void, Void, String> apiCall = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,10 +44,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(LoginActivity.this, SignUp.class);
-
                 startActivity(intent);
-
-
             }
         });
         btnlogin.setOnClickListener(new View.OnClickListener() {
@@ -43,13 +53,14 @@ public class LoginActivity extends AppCompatActivity {
                 String strusername = etusername.getText().toString();
                 String strpass = etpass.getText().toString();
                 if (strusername.isEmpty()) {
-                    Toast.makeText(LoginActivity.this, "Username cannot be empty", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "email cannot be empty", Toast.LENGTH_SHORT).show();
                 }else if (strpass.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Please enter password", Toast.LENGTH_SHORT).show();
                 }else {
+                    loginAPICall(strusername,strpass);
+                    // temp
                     Intent i=new Intent(LoginActivity.this,HomeActivity.class);
                     startActivity(i);
-                    Toast.makeText(LoginActivity.this, "Login Successfully..", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -91,12 +102,47 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void handleTextDialog() {
-
         if (dialogView != null) {
             EditText editText = (EditText) dialogView.findViewById(R.id.forget_et_email);
             String str = editText.getText().toString();
-
         }
+    }
+
+
+    private void loginAPICall(String email,String password){
+        //creating request
+        JSONObject object = new JSONObject();
+        try {
+            object.put("email",email);
+            object.put("password",password);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String loginJsonStr = object.toString();
+        Utils.log(loginJsonStr);
+        apiCall = new APICall(LoginActivity.this, Utils.LOGIN_URL, loginJsonStr, "Authenticating", new Callback() {
+            @Override
+            public void onCallback(String response) {
+                if(response != null) {
+                    LoginModel model = new Gson().fromJson(response,LoginModel.class);
+                    // storing local data
+                    SharedPreferences.Editor editor = getSharedPreferences(Utils.SHARED_PREF_NAME,MODE_PRIVATE).edit();
+                    editor.putString(Utils.LOGIN_PREF,response);
+                    if(model.getData() != null && model.getData().getId() != null) {
+                        editor.putString(Utils.USER_ID_PREF, model.getData().getId());
+                    }
+                    editor.apply();
+
+                    // navigate to home
+                    Intent i=new Intent(LoginActivity.this,HomeActivity.class);
+                    startActivity(i);
+                    Toast.makeText(LoginActivity.this, "Login Successfully..", Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(LoginActivity.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).execute();
+
     }
 
 }
