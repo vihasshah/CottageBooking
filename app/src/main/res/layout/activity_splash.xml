@@ -8,20 +8,19 @@
     tools:context="com.khushi.win10.cottagebooking.SplashActivity">
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
         android:src="@drawable/logo"
-        android:scaleType="fitStart">
+        android:layout_centerInParent="true"/>
 
-    </ImageView>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="110dp"
-        android:layout_marginTop="230dp"
-        android:text="Cottages"
+        android:text="Cottage Booking"
         android:textStyle="bold"
-        android:textSize="70dp"
+        android:textSize="50dp"
         android:textColor="@color/colorPrimary"
         android:fontFamily="cursive"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:layout_alignParentBottom="true"/>
 </RelativeLayout>
