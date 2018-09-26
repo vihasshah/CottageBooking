@@ -124,19 +124,24 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onCallback(String response) {
                 if(response != null) {
+
                     LoginModel model = new Gson().fromJson(response,LoginModel.class);
                     // storing local data
-                    SharedPreferences.Editor editor = getSharedPreferences(Utils.SHARED_PREF_NAME,MODE_PRIVATE).edit();
-                    editor.putString(Utils.LOGIN_PREF,response);
-                    if(model.getData() != null && model.getData().getId() != null) {
-                        editor.putString(Utils.USER_ID_PREF, model.getData().getId());
-                    }
-                    editor.apply();
+                    if(model.getSuccess() == 1) {
+                        SharedPreferences.Editor editor = getSharedPreferences(Utils.SHARED_PREF_NAME, MODE_PRIVATE).edit();
+                        editor.putString(Utils.LOGIN_PREF, response);
+                        if (model.getData() != null && model.getData().getId() != null) {
+                            editor.putString(Utils.USER_ID_PREF, model.getData().getId());
+                        }
+                        editor.apply();
 
-                    // navigate to home
-                    Intent i=new Intent(LoginActivity.this,HomeActivity.class);
-                    startActivity(i);
-                    Toast.makeText(LoginActivity.this, "Login Successfully..", Toast.LENGTH_SHORT).show();
+                        // navigate to home
+                        Intent i = new Intent(LoginActivity.this, HomeActivity.class);
+                        startActivity(i);
+                        Toast.makeText(LoginActivity.this, model.getMessage(), Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(LoginActivity.this, model.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }else{
                     Toast.makeText(LoginActivity.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
                 }

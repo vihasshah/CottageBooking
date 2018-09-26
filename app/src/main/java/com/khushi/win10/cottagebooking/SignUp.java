@@ -1,6 +1,8 @@
 package com.khushi.win10.cottagebooking;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -10,6 +12,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.khushi.win10.cottagebooking.Helpers.Utils;
+import com.khushi.win10.cottagebooking.Model.LoginModel;
+import com.khushi.win10.cottagebooking.Webservice.APICall;
+import com.khushi.win10.cottagebooking.Webservice.Callback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -17,6 +28,8 @@ public class SignUp extends AppCompatActivity {
     private EditText et_fn,et_ln,et_add,et_un,et_email,et_pass,et_cn,et_ans;
     private Spinner sp_type,sp_que;
     private Button btnsignup,btnreset;
+    private AsyncTask<Void, Void, String> apiCall = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,5 +97,48 @@ public class SignUp extends AppCompatActivity {
         pattern = Pattern.compile(EMAIL_PATTERN);
         matcher = pattern.matcher(target);
         return matcher.matches();
+    }
+
+    private void signUpApiCall(String firstname, String lastname, String email, String contact, String password){
+        //creating request
+        JSONObject object = new JSONObject();
+        try {
+            object.put("firstname",firstname);
+            object.put("lastname",lastname);
+            object.put("contact",contact);
+            object.put("email",email);
+            object.put("password",password);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String signupJsonStr = object.toString();
+        Utils.log(signupJsonStr);
+        apiCall = new APICall(SignUp.this, Utils.LOGIN_URL, signupJsonStr, "Creating", new Callback() {
+            @Override
+            public void onCallback(String response) {
+                if(response != null) {
+
+                    LoginModel model = new Gson().fromJson(response,LoginModel.class);
+                    if(model.getSuccess() == 1) {
+                        // storing local data
+                        SharedPreferences.Editor editor = getSharedPreferences(Utils.SHARED_PREF_NAME, MODE_PRIVATE).edit();
+                        editor.putString(Utils.LOGIN_PREF, response);
+                        if (model.getData() != null && model.getData().getId() != null) {
+                            editor.putString(Utils.USER_ID_PREF, model.getData().getId());
+                        }
+                        editor.apply();
+
+                        // navigate to home
+                        Intent i = new Intent(SignUp.this, HomeActivity.class);
+                        startActivity(i);
+                        Toast.makeText(SignUp.this, model.getMessage(), Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(SignUp.this, model.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(SignUp.this, "Signup Failed", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }).execute();
     }
 }
