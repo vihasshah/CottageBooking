@@ -3,6 +3,7 @@ package com.khushi.win10.cottagebooking;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -29,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     private TextView tvforgotpassword;
     private EditText etusername,etpass;
     private View dialogView;
-    private AsyncTask<Void, Void, String> apiCall = null;
+    private AsyncTask<Void, Void, Void> apiCall = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,10 +58,11 @@ public class LoginActivity extends AppCompatActivity {
                 }else if (strpass.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Please enter password", Toast.LENGTH_SHORT).show();
                 }else {
+                    authenticatingBtnUI();
                     loginAPICall(strusername,strpass);
                     // temp
-                    Intent i=new Intent(LoginActivity.this,HomeActivity.class);
-                    startActivity(i);
+//                    Intent i=new Intent(LoginActivity.this,HomeActivity.class);
+//                    startActivity(i);
                 }
             }
         });
@@ -101,6 +103,17 @@ public class LoginActivity extends AppCompatActivity {
         String emailstr = emailET.getText().toString();
     }
 
+    private void authenticatingBtnUI() {
+        btnlogin.setText("Authenticating");
+        btnlogin.setBackgroundResource(android.R.color.darker_gray);
+        btnlogin.setTextColor(Color.parseColor("#ffffff"));
+    }
+
+    private void defaultBtnUI() {
+        btnlogin.setText("Login");
+        btnlogin.setBackgroundResource(R.color.colorPrimaryDark);
+        btnlogin.setTextColor(Color.parseColor("#ffffff"));
+    }
     private void handleTextDialog() {
         if (dialogView != null) {
             EditText editText = (EditText) dialogView.findViewById(R.id.forget_et_email);
@@ -122,32 +135,47 @@ public class LoginActivity extends AppCompatActivity {
         Utils.log(loginJsonStr);
         apiCall = new APICall(LoginActivity.this, Utils.LOGIN_URL, loginJsonStr, "Authenticating", new Callback() {
             @Override
-            public void onCallback(String response) {
-                if(response != null) {
+            public void onCallback(final String response) {
 
-                    LoginModel model = new Gson().fromJson(response,LoginModel.class);
-                    // storing local data
-                    if(model.getSuccess() == 1) {
-                        SharedPreferences.Editor editor = getSharedPreferences(Utils.SHARED_PREF_NAME, MODE_PRIVATE).edit();
-                        editor.putString(Utils.LOGIN_PREF, response);
-                        if (model.getData() != null && model.getData().getId() != null) {
-                            editor.putString(Utils.USER_ID_PREF, model.getData().getId());
+                LoginActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        defaultBtnUI();
+                        if(response != null) {
+
+                            LoginModel model = new Gson().fromJson(response,LoginModel.class);
+                            // storing local data
+                            if(model.getSuccess() == 1) {
+                                SharedPreferences.Editor editor = getSharedPreferences(Utils.SHARED_PREF_NAME, MODE_PRIVATE).edit();
+                                editor.putString(Utils.LOGIN_PREF, response);
+                                if (model.getData() != null && model.getData().getId() != null) {
+                                    editor.putString(Utils.USER_ID_PREF, model.getData().getId());
+                                }
+                                editor.apply();
+
+                                // navigate to home
+                                Intent i = new Intent(LoginActivity.this, HomeActivity.class);
+                                startActivity(i);
+                                Toast.makeText(LoginActivity.this, model.getMessage(), Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(LoginActivity.this, model.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }else{
+                            Toast.makeText(LoginActivity.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
                         }
-                        editor.apply();
-
-                        // navigate to home
-                        Intent i = new Intent(LoginActivity.this, HomeActivity.class);
-                        startActivity(i);
-                        Toast.makeText(LoginActivity.this, model.getMessage(), Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(LoginActivity.this, model.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                }else{
-                    Toast.makeText(LoginActivity.this, "Authentication Failed", Toast.LENGTH_SHORT).show();
-                }
+                });
             }
         }).execute();
 
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        defaultBtnUI();
+        if(apiCall != null && apiCall.getStatus() == AsyncTask.Status.RUNNING){
+            apiCall.cancel(true);
+        }
+    }
 }
