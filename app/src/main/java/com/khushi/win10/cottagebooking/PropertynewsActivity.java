@@ -20,7 +20,7 @@ public class PropertynewsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-        ObjectHolder.newsModel=new ArrayList<>();
+//        ObjectHolder.newsModel=new ArrayList<>();
         NewsModel model1=new NewsModel();
         model1.setImagepropertynews(R.drawable.news1);
         model1.setTitle("Ahemdabad is Up-to-date on Infrastructure.");
