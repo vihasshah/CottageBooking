@@ -2,6 +2,7 @@ package com.khushi.win10.cottagebooking;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +51,8 @@ public class CustomRentAdapter extends BaseAdapter {
         TextView textrating;
         TextView textrank;
         TextView textprice;
+        TextView reviewsTv;
+        TextView availableTv;
     }
 
 
@@ -66,6 +69,8 @@ public class CustomRentAdapter extends BaseAdapter {
             holder.textrank=(TextView)convertView.findViewById(R.id.row_rent_rank);
             holder.textprice=(TextView)convertView.findViewById(R.id.row_rent_price);
             holder.imageView=(ImageView)convertView.findViewById(R.id.row_rent_image);
+            holder.reviewsTv = (TextView)convertView.findViewById(R.id.row_rent_reviews);
+            holder.availableTv = (TextView) convertView.findViewById(R.id.row_rent_book);
             convertView.setTag(holder);
         }
         else {
@@ -76,10 +81,23 @@ public class CustomRentAdapter extends BaseAdapter {
         Picasso.get().load(Utils.extractImages(rentDetailsList.get(position).getImages())[0]).into(holder.imageView);
         holder.textname.setText(rentDetailsList.get(position).getName());
         holder.textlocation.setText(rentDetailsList.get(position).getPlace());
-        holder.textrating.setText(rentDetailsList.get(position).getRatings());
-        String reviewsNum = rentDetailsList.get(position).getReviews().size()+"";
-        holder.textrank.setText(reviewsNum);
-        holder.textprice.setText(rentDetailsList.get(position).getPrice());
+        String reviewsNum = rentDetailsList.get(position).getRatings()+"/5";
+        holder.textrating.setText(reviewsNum);
+
+        String reviewsText = rentDetailsList.get(position).getReviews().size() + " reviews";
+        holder.reviewsTv.setText(reviewsText);
+
+        holder.textrank.setText(rentDetailsList.get(position).getCategory());
+        String price = "Rs. "+rentDetailsList.get(position).getPrice()+"/day";
+        holder.textprice.setText(price);
+
+        if(rentDetailsList.get(position).getAvailable().equals("1")){
+            holder.availableTv.setTextColor(Color.parseColor("#4daf7c"));
+           holder.availableTv.setText("Available");
+        }else{
+            holder.availableTv.setTextColor((Color.parseColor("#6c7a89")));
+            holder.availableTv.setText("Booked");
+        }
 
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,4 +109,5 @@ public class CustomRentAdapter extends BaseAdapter {
         });
         return convertView;
     }
+
 }

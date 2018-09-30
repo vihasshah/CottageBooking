@@ -7,5 +7,11 @@
     <color name="colorPrimaryDark1">#22FFFFFF</color>
     <color name="colorAccent1">#8818FFFF</color>
 
+    <color name="dark_grey">#2e3131</color>
+    <color name="medium_grey">#6c7a89</color>
+    <color name="light_grey">#abb7b7</color>
+
+    <color name="dark_green">#16a085</color>
+    <color name="status_green">#4daf7c</color>
 </resources>
 

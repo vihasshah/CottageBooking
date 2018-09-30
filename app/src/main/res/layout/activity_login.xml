@@ -79,6 +79,7 @@
             style="@style/LoginEditText"
             android:inputType="textEmailAddress"
             android:maxLines="1"
+            android:text="vihas@vihas.com"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/main_et_username"/>
         <EditText
@@ -92,6 +93,7 @@
             android:inputType="textPassword"
             style="@style/LoginEditText"
             android:maxLines="1"
+            android:text="vihas"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:id="@+id/main_et_password"/>
 
