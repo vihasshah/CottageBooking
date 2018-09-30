@@ -1,10 +1,8 @@
 package com.khushi.win10.cottagebooking;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -13,14 +11,27 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import java.util.ArrayList;
+import com.google.gson.Gson;
+import com.khushi.win10.cottagebooking.Helpers.Utils;
+import com.khushi.win10.cottagebooking.Model.RentListModel;
+import com.khushi.win10.cottagebooking.Webservice.APICall;
+import com.khushi.win10.cottagebooking.Webservice.Callback;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    ListView listView;
+    private ListView listView;
+    private AsyncTask<Void, Void, Void> apiCall = null;
+
+    private ProgressBar progressBar = null;
+    private TextView emptyText = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,14 +39,6 @@ public class HomeActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-//        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-//        fab.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-//            }
-//        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -47,19 +50,27 @@ public class HomeActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         listView=(ListView)findViewById(R.id.home_list);
-        ObjectHolder.rentListModel=new ArrayList<>();
-        RentListModel model1=new RentListModel();
-        model1.setImageViewCottage(R.drawable.mybg1);
-        model1.setName("Krishna Cottage");
-        model1.setLocation("Ahemdabad,Gujrat,India");
-        model1.setRating("rating");
-        model1.setRank("4.6/5");
-        model1.setPrice("Rs.10000");
+        // ref of loading indecator and empty text
+        progressBar = (ProgressBar) findViewById(R.id.home_progressbar);
+        emptyText = (TextView) findViewById(R.id.home_emptyText);
 
-        ObjectHolder.rentListModel.add(model1);
+        cottageListApi();
 
-        CustomRentAdapter adapter = new CustomRentAdapter(this,ObjectHolder.rentListModel);
-        listView.setAdapter(adapter);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(apiCall != null && apiCall.getStatus() != AsyncTask.Status.RUNNING){
+            apiCall.cancel(true);
+        }
     }
 
     @Override
@@ -116,5 +127,47 @@ public class HomeActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void cottageListApi(){
+        apiCall = new APICall(HomeActivity.this, Utils.COTTAGE_LIST_URL, null, "Loading list", new Callback() {
+            @Override
+            public void onCallback(final String response) {
+
+                HomeActivity.this.runOnUiThread(
+                    new Runnable() {
+                        @Override
+                        public void run() {
+                            progressBar.setVisibility(View.GONE);
+
+                            if(response != null){
+                                RentListModel model = new Gson().fromJson(response,RentListModel.class);
+                                if(model.getSuccess() == 1){
+                                    if(ObjectHolder.rentListModel.size() > 0){
+                                        ObjectHolder.rentListModel.clear();
+                                    }
+                                    ObjectHolder.rentListModel.addAll(model.getData());
+
+                                    emptyText.setVisibility(View.GONE);
+                                    listView.setVisibility(View.VISIBLE);
+
+                                    CustomRentAdapter adapter = new CustomRentAdapter(HomeActivity.this, ObjectHolder.rentListModel);
+                                    listView.setAdapter(adapter);
+                                }else{
+                                    emptyText.setVisibility(View.VISIBLE);
+                                    listView.setVisibility(View.GONE);
+                                    emptyText.setText(model.getMessage());
+                                }
+                            }else{
+                                Toast.makeText(HomeActivity.this, "No Data Found", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                );
+
+
+
+            }
+        }).execute();
     }
 }
