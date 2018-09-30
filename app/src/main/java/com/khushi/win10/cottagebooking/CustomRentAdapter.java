@@ -9,17 +9,22 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.khushi.win10.cottagebooking.Helpers.Utils;
+import com.khushi.win10.cottagebooking.Model.RentListModel;
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Win10 on 13/09/2018.
  */
 
 public class CustomRentAdapter extends BaseAdapter {
-    Context context;
-    ArrayList<RentListModel> rentDetailsList;
+    private Context context = null;
+    private List<RentListModel.DataBean> rentDetailsList;
 
-    public CustomRentAdapter(Context context, ArrayList<RentListModel> rentDetailsList) {
+    public CustomRentAdapter(Context context, List<RentListModel.DataBean> rentDetailsList) {
         this.context = context;
         this.rentDetailsList = rentDetailsList;
     }
@@ -66,11 +71,14 @@ public class CustomRentAdapter extends BaseAdapter {
         else {
             holder=(ViewHolder)convertView.getTag();
         }
-        holder.imageView.setImageResource(rentDetailsList.get(position).getImageViewCottage());
+        Utils.log(Utils.extractImages(rentDetailsList.get(position).getImages())[0]);
+//        Picasso.w(context).load(Utils.extractImages(rentDetailsList.get(position).getImages())[0]).into(holder.imageView);
+        Picasso.get().load(Utils.extractImages(rentDetailsList.get(position).getImages())[0]).into(holder.imageView);
         holder.textname.setText(rentDetailsList.get(position).getName());
-        holder.textlocation.setText(rentDetailsList.get(position).getLocation());
-        holder.textrating.setText(rentDetailsList.get(position).getRating());
-        holder.textrank.setText(rentDetailsList.get(position).getRank());
+        holder.textlocation.setText(rentDetailsList.get(position).getPlace());
+        holder.textrating.setText(rentDetailsList.get(position).getRatings());
+        String reviewsNum = rentDetailsList.get(position).getReviews().size()+"";
+        holder.textrank.setText(reviewsNum);
         holder.textprice.setText(rentDetailsList.get(position).getPrice());
 
         convertView.setOnClickListener(new View.OnClickListener() {
