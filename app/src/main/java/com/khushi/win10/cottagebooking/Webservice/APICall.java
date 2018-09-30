@@ -5,25 +5,28 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.khushi.win10.cottagebooking.Helpers.Utils;
+import com.squareup.okhttp.MediaType;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
+import com.squareup.okhttp.ResponseBody;
+
 
 import java.io.IOException;
 
-import okhttp3.MediaType;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
-public class APICall extends AsyncTask<Void,Void,String>{
+public class APICall extends AsyncTask<Void,Void,Void>{
     // interface for response
 
     private Callback callback;
     private final MediaType URLENCODE = MediaType.parse("application/json;charset=utf-8");
-    private ProgressDialog dialog;
+    private ProgressDialog dialog = null;
     private Context context;
-    private String dialogMessage;
+    private String dialogMessage = null;
     private String URL;
     private String jsonBody;
+    private OkHttpClient client = null;
 
     public APICall(Context context, String URL, String jsonRequestBody, String dialogMessage,Callback callback){
         this.context = context;
@@ -31,16 +34,7 @@ public class APICall extends AsyncTask<Void,Void,String>{
         this.jsonBody = jsonRequestBody;
         this.dialogMessage = dialogMessage;
         this.callback = callback;
-    }
-
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-        if(dialogMessage != null) {
-            dialog = new ProgressDialog(context);
-            dialog.setMessage(dialogMessage);
-            dialog.show();
-        }
+        client = new OkHttpClient();
     }
 
     /**
@@ -49,10 +43,10 @@ public class APICall extends AsyncTask<Void,Void,String>{
      * @return String response
      */
     @Override
-    protected String doInBackground(Void... params) {
+    protected Void doInBackground(Void... params) {
 
         // creating okhttp client
-        OkHttpClient client = new OkHttpClient();
+
         // client.setConnectTimeout(10L, TimeUnit.SECONDS);
         // creating request body
         RequestBody body;
@@ -67,15 +61,22 @@ public class APICall extends AsyncTask<Void,Void,String>{
             builder.post(body);
         }
         builder.url(URL);
+        Utils.log((URL));
         Request request = builder.build();
 
         // creating webserivce call and get response
 
         try {
             Response response = client.newCall(request).execute();
-            String res = response.body().string();
-            Utils.log(res);
-            return res;
+
+            ResponseBody resBody = response.body();
+            if(resBody != null) {
+                String res = resBody.string();
+                callback.onCallback(res);
+            }else{
+                callback.onCallback(null);
+                Utils.log(getClass().getSimpleName()+": response null");
+            }
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -84,22 +85,6 @@ public class APICall extends AsyncTask<Void,Void,String>{
         return null;
     }
 
-
-    @Override
-    protected void onPostExecute(String s) {
-        super.onPostExecute(s);
-        if(dialogMessage != null){
-            if(dialog.isShowing()){
-                dialog.dismiss();
-            }
-        }
-        if(s != null){
-            callback.onCallback(s);
-        }else{
-            callback.onCallback(null);
-            Utils.log(getClass().getSimpleName()+": response null");
-        }
-    }
 
 }
 
