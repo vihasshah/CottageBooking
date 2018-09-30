@@ -2,6 +2,7 @@ package com.khushi.win10.cottagebooking;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,7 +29,7 @@ public class SignUp extends AppCompatActivity {
     private EditText et_fn,et_ln,et_add,et_un,et_email,et_pass,et_cn,et_ans;
     private Spinner sp_type,sp_que;
     private Button btnsignup,btnreset;
-    private AsyncTask<Void, Void, String> apiCall = null;
+    private AsyncTask<Void, Void, Void> apiCall = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,9 +83,10 @@ public class SignUp extends AppCompatActivity {
 //                } else if (ansstr.isEmpty()) {
 //                    Toast.makeText(SignUp.this, "Answer cannot be empty", Toast.LENGTH_SHORT).show();
                 }else {
-                    Intent i=new Intent(SignUp.this,HomeActivity.class);
-                    startActivity(i);
-
+                    authenticatingBtnUI();
+                    signUpApiCall(fnstr,lnstr,emailstr,et_cn.getText().toString(),passstr);
+//                    Intent i=new Intent(SignUp.this,HomeActivity.class);
+//                    startActivity(i);
                     Toast.makeText(SignUp.this, "Signup Successfully", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -98,6 +100,18 @@ public class SignUp extends AppCompatActivity {
         pattern = Pattern.compile(EMAIL_PATTERN);
         matcher = pattern.matcher(target);
         return matcher.matches();
+    }
+
+    private void authenticatingBtnUI() {
+        btnsignup.setText("Creating...");
+        btnsignup.setBackgroundResource(android.R.color.darker_gray);
+        btnsignup.setTextColor(Color.parseColor("#ffffff"));
+    }
+
+    private void defaultBtnUI() {
+        btnsignup.setText("Signup");
+        btnsignup.setBackgroundResource(R.color.colorPrimaryDark);
+        btnsignup.setTextColor(Color.parseColor("#ffffff"));
     }
 
     private void signUpApiCall(String firstname, String lastname, String email, String contact, String password){
@@ -116,29 +130,36 @@ public class SignUp extends AppCompatActivity {
         Utils.log(signupJsonStr);
         apiCall = new APICall(SignUp.this, Utils.SIGNUP_URL, signupJsonStr, "Creating", new Callback() {
             @Override
-            public void onCallback(String response) {
-                if(response != null) {
+            public void onCallback(final String response) {
+                SignUp.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        defaultBtnUI();
+                        if(response != null) {
 
-                    LoginModel model = new Gson().fromJson(response,LoginModel.class);
-                    if(model.getSuccess() == 1) {
-                        // storing local data
-                        SharedPreferences.Editor editor = getSharedPreferences(Utils.SHARED_PREF_NAME, MODE_PRIVATE).edit();
-                        editor.putString(Utils.LOGIN_PREF, response);
-                        if (model.getData() != null && model.getData().getId() != null) {
-                            editor.putString(Utils.USER_ID_PREF, model.getData().getId());
+                            LoginModel model = new Gson().fromJson(response,LoginModel.class);
+                            if(model.getSuccess() == 1) {
+                                // storing local data
+                                SharedPreferences.Editor editor = getSharedPreferences(Utils.SHARED_PREF_NAME, MODE_PRIVATE).edit();
+                                editor.putString(Utils.LOGIN_PREF, response);
+                                if (model.getData() != null && model.getData().getId() != null) {
+                                    editor.putString(Utils.USER_ID_PREF, model.getData().getId());
+                                }
+                                editor.apply();
+
+                                // navigate to home
+                                Intent i = new Intent(SignUp.this, HomeActivity.class);
+                                startActivity(i);
+                                Toast.makeText(SignUp.this, model.getMessage(), Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(SignUp.this, model.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        }else{
+                            Toast.makeText(SignUp.this, "Signup Failed", Toast.LENGTH_SHORT).show();
                         }
-                        editor.apply();
-
-                        // navigate to home
-                        Intent i = new Intent(SignUp.this, HomeActivity.class);
-                        startActivity(i);
-                        Toast.makeText(SignUp.this, model.getMessage(), Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(SignUp.this, model.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                }else{
-                    Toast.makeText(SignUp.this, "Signup Failed", Toast.LENGTH_SHORT).show();
-                }
+                });
+
             }
         }).execute();
     }
