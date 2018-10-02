@@ -1,240 +1,209 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android" >
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_rent_detail"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.khushi.win10.cottagebooking.RentDetailActivity">
+<android.support.v4.widget.NestedScrollView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:src="@drawable/mybg1"
-        android:scaleType="fitXY"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:weightSum="2">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Ownername :"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/rent_detail_ownername"
-            android:layout_marginTop="20dp" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="name"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/rent_detail_name"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="20dp" />
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:weightSum="2">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Address :"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/rent_detail_cottageaddress"
-            android:layout_marginTop="20dp" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="address"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/rent_detail_address"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="20dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:weightSum="2">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Category :"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/rent_detail_cottagecategory"
-            android:layout_marginTop="20dp" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="category"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/rent_detail_category"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="20dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:weightSum="2">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Email :"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/rent_detail_owneremail"
-            android:layout_marginTop="20dp" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="name"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/rent_detail_email"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="20dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:weightSum="2">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Contact Number :"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/rent_detail_ownernumber"
-            android:layout_marginTop="20dp" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="number"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/rent_detail_number"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="20dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:weightSum="2">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Estimated Price :"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/rent_detail_cottageprice"
-            android:layout_marginTop="20dp" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="price"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/rent_detail_price"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="20dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:weightSum="2">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Start Date :"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/rent_detail_startdate"
-            android:layout_marginTop="20dp" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="date1"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/rent_detail_date1"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="20dp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:orientation="horizontal"
-        android:weightSum="2">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="End Date :"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/rent_detail_enddate"
-            android:layout_marginTop="20dp" />
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="date2"
-            android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/rent_detail_date2"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="20dp" />
-    </LinearLayout>
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_rent_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2">
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="AC"
-            android:layout_marginTop="20dp"
-            android:id="@+id/rent_detail_ac"/>
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="food"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="20dp"
-            android:id="@+id/rent_detail_food"/>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2">
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pool"
-            android:layout_marginTop="20dp"
-            android:id="@+id/rent_detail_pool"/>
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Wifi"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="20dp"
-            android:id="@+id/rent_detail_wifi"/>
-    </LinearLayout>
+        android:orientation="vertical"
+        tools:context="com.khushi.win10.cottagebooking.RentDetailActivity">
 
-    <Button
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:text="Book"
-        android:id="@+id/btn_book"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center"
-        style="@style/LoginButton"/>
-</LinearLayout>
-</ScrollView>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:src="@drawable/mybg1"
+            android:scaleType="fitCenter"
+            android:id="@+id/detail_big_image"
+            android:background="@android:color/black"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/rent_detail_horizontal_recyclerview"/>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:paddingTop="8dp">
+
+                <TextView
+                    android:id="@+id/detail_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="name"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/dark_grey"
+                    android:textStyle="bold"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_toLeftOf="@id/detail_currency_type"
+                    android:layout_toStartOf="@id/detail_currency_type"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"/>
+
+                <TextView
+                    android:id="@+id/detail_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:text="5/5"
+                    android:textColor="@color/dark_green"
+                    android:layout_alignParentEnd="true" />
+
+                <TextView
+                    android:id="@+id/detail_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/detail_name"
+                    android:text="3 star"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:layout_alignLeft="@id/detail_name"
+                    android:layout_alignStart="@id/detail_name"/>
+
+                <TextView
+                    android:id="@+id/detail_place"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/detail_category"
+                    android:text="Ahmedabad"
+                    android:layout_toLeftOf="@id/detail_currency_type"
+                    android:layout_alignStart="@id/detail_name"
+                    android:layout_alignLeft="@id/detail_name"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/medium_grey"
+                    android:textStyle="bold"
+                    android:layout_toStartOf="@id/detail_currency_type" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/detail_category"
+                    android:text="Rs. "
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/medium_grey"
+                    android:id="@+id/detail_currency_type"
+                    android:textSize="12dp"
+                    android:layout_toLeftOf="@id/detail_price"
+                    android:layout_alignBaseline="@id/detail_price"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/detail_category"
+                    android:text="3000"
+                    android:id="@+id/detail_price"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_toLeftOf="@id/detail_unit"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/detail_category"
+                    android:text="/day"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/light_grey"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/detail_unit"
+                    android:textSize="12dp"
+                    android:layout_alignBaseline="@id/detail_price"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/detail_place"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/medium_grey"
+                    android:text="123123123"
+                    android:id="@+id/detail_contact"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignLeft="@id/detail_currency_type"
+                    android:layout_alignStart="@id/detail_currency_type"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/detail_contact"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/light_grey"
+                    android:text="Amenities"
+                    android:id="@+id/detail_amenities_heading"
+                    android:paddingTop="5dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:textSize="11sp"
+                    android:layout_alignLeft="@id/detail_currency_type"
+                    android:layout_alignStart="@id/detail_currency_type"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/detail_amenities_heading"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="@color/medium_grey"
+                    android:text="Wifi , Pool"
+                    android:id="@+id/detail_amenities"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignLeft="@id/detail_currency_type"
+                    android:layout_alignStart="@id/detail_currency_type"/>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/border_background"
+                    android:id="@+id/detail_book_btn"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="booked"
+                    android:textColor="@android:color/white"
+                    android:minHeight="28dp"
+                    android:maxHeight="30dp"
+                    android:layout_below="@id/detail_price"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignStart="@id/detail_currency_type"
+                    android:layout_alignLeft="@id/detail_currency_type"/>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Reviews"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:id="@+id/detail_reviews_label"
+            android:textAppearance="?android:attr/textAppearanceMedium"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/detail_reviews_list"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"/>
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

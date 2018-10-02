@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp">
+
+    <ImageView
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:src="@drawable/ic_account_circle"
+        android:id="@+id/review_account_icon"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:paddingRight="5dp"
+        android:paddingEnd="5dp"/>
+    <RatingBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/review_rating_bar"
+        android:numStars="5"
+        style="?android:attr/ratingBarStyleSmall"
+        android:layout_toRightOf="@id/review_account_icon"
+        android:layout_toEndOf="@id/review_account_icon"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:id="@+id/review_date"
+        android:textColor="@color/light_grey"
+        android:text="32"
+        android:layout_toRightOf="@id/review_rating_bar"
+        android:layout_toEndOf="@id/review_rating_bar"
+        android:gravity="end"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/review_text"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@id/review_date"
+        android:layout_toRightOf="@id/review_account_icon"
+        android:layout_toEndOf="@id/review_account_icon"
+        android:textColor="@color/dark_grey"/>
+</RelativeLayout>

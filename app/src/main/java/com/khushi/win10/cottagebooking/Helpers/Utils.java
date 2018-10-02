@@ -12,6 +12,8 @@ public class Utils {
     public static final String SIGNUP_URL = "http://"+SERVER_URL+"/cottage/api/signup.php";
     public static final String COTTAGE_LIST_URL ="http://"+SERVER_URL+"/cottage/api/cottage_list.php";
 
+    public static final String INTENT_POSITION = "INTENT_POSITION";
+
 
     public static void log(String message){
         Log.d("myapp",message);
@@ -21,7 +23,7 @@ public class Utils {
         String[] images = csvImageList.split(",");
         // creating full url
         for(int i = 0 ; i < images.length ; i++){
-            images[i] = "http://"+Utils.SERVER_URL+images[i];
+            images[i] = ("http://"+Utils.SERVER_URL+images[i]).trim();
         }
         return images;
     }

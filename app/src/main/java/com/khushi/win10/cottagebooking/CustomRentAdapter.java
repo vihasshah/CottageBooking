@@ -103,7 +103,7 @@ public class CustomRentAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(context,RentDetailActivity.class);
-                intent.putExtra("position",position);
+                intent.putExtra(Utils.INTENT_POSITION,position);
                 context.startActivity(intent);
             }
         });

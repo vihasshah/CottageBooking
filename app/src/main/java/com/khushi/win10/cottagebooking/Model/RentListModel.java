@@ -1,12 +1,13 @@
 package com.khushi.win10.cottagebooking.Model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Win10 on 13/09/2018.
  */
 
-public class RentListModel {
+public class RentListModel{
 
     /**
      * success : 1
