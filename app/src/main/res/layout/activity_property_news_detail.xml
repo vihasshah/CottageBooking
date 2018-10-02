@@ -12,8 +12,8 @@
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="250dp"
-        android:src="@drawable/news1"
-        android:scaleType="fitXY"
+        android:scaleType="fitCenter"
+        android:background="@android:color/black"
         android:id="@+id/img_pronewsdetails"/>
     <TextView
         android:layout_width="match_parent"

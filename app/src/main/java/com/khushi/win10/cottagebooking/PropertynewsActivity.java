@@ -1,17 +1,27 @@
 package com.khushi.win10.cottagebooking;
 
+import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
-import java.util.ArrayList;
+import com.google.gson.Gson;
+import com.khushi.win10.cottagebooking.Helpers.Utils;
+import com.khushi.win10.cottagebooking.Model.NewsModel;
+import com.khushi.win10.cottagebooking.Webservice.APICall;
+import com.khushi.win10.cottagebooking.Webservice.Callback;
 
 public class PropertynewsActivity extends AppCompatActivity {
 
-    ListView listView;
-    int[] imageView=new int[]{R.drawable.news1};
-    String title[];
+    private ListView listView;
+    private ProgressBar progressBar;
+    private TextView emptyText;
+    private AsyncTask<Void, Void, Void> apiCall = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,47 +30,12 @@ public class PropertynewsActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
-//        ObjectHolder.newsModel=new ArrayList<>();
-        NewsModel model1=new NewsModel();
-        model1.setImagepropertynews(R.drawable.news1);
-        model1.setTitle("Ahemdabad is Up-to-date on Infrastructure.");
-
-        NewsModel model2=new NewsModel();
-        model2.setImagepropertynews(R.drawable.news3);
-        model2.setTitle("The Real Healthy Homes.");
-
-        NewsModel model3=new NewsModel();
-        model3.setImagepropertynews(R.drawable.myimg);
-        model3.setTitle("Asbestos Cottage tramp worth every effort");
-
-        NewsModel model4=new NewsModel();
-        model4.setImagepropertynews(R.drawable.news2);
-        model4.setTitle("Mumbai ahead of Washington,Toronto in super-rich population.");
-
-        NewsModel model5=new NewsModel();
-        model5.setImagepropertynews(R.drawable.news1);
-        model5.setTitle("Iconic Waterford hotel Ard Rí sold");
-
-        NewsModel model6=new NewsModel();
-        model6.setImagepropertynews(R.drawable.cottage2_02);
-        model6.setTitle("Turkey blocks access to Dutch-based Booking.com.");
-
-        NewsModel model7=new NewsModel();
-        model7.setImagepropertynews(R.drawable.au);
-        model7.setTitle("An iconic luxury hotel experience in Kerala, India");
-
         listView=(ListView)findViewById(R.id.listview_propertynews);
-        ObjectHolder.newsModel.add(model1);
-        ObjectHolder.newsModel.add(model2);
-        ObjectHolder.newsModel.add(model3);
-        ObjectHolder.newsModel.add(model4);
-        ObjectHolder.newsModel.add(model5);
-        ObjectHolder.newsModel.add(model6);
-        ObjectHolder.newsModel.add(model7);
+        progressBar = findViewById(R.id.news_list_progress_bar);
+        emptyText = findViewById(R.id.news_list_empty_text);
 
-        CustomNewsAdapter adapter = new CustomNewsAdapter(this,ObjectHolder.newsModel);
-        listView.setAdapter(adapter);
 
+        callNewsListApi();
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -68,5 +43,50 @@ public class PropertynewsActivity extends AppCompatActivity {
             onBackPressed();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void callNewsListApi(){
+        apiCall = new APICall(this, Utils.NEWS_LIST_URL, null, null, new Callback() {
+            @Override
+            public void onCallback(final String response) {
+                PropertynewsActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        progressBar.setVisibility(View.GONE);
+                        if(response != null){
+                            NewsModel model = new Gson().fromJson(response,NewsModel.class);
+                            if(model.getSuccess() == 1){
+                                if(model.getData() != null && model.getData().size() > 0){
+                                    emptyText.setVisibility(View.GONE);
+                                    listView.setVisibility(View.VISIBLE);
+
+                                    if(ObjectHolder.newsModel.size() > 0){
+                                        ObjectHolder.newsModel.clear();
+                                    }
+                                    ObjectHolder.newsModel.addAll(model.getData());
+                                    CustomNewsAdapter adapter = new CustomNewsAdapter(PropertynewsActivity.this,ObjectHolder.newsModel);
+                                    listView.setAdapter(adapter);
+
+                                }else{
+                                    emptyText.setVisibility(View.VISIBLE);
+                                    emptyText.setText("No News Found");
+                                }
+                            }
+                        }else{
+                            emptyText.setText(View.VISIBLE);
+                            emptyText.setText("Something goes wrong");
+                        }
+                    }
+                });
+            }
+        }).execute();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(apiCall != null && apiCall.getStatus() == AsyncTask.Status.RUNNING){
+            apiCall.cancel(true);
+        }
     }
 }
