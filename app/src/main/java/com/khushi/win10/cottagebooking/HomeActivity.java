@@ -50,7 +50,7 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        getSupportActionBar().setTitle("Cottages");
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -133,8 +133,12 @@ public class HomeActivity extends AppCompatActivity
         } else if (id == R.id.nav_settings) {
             Intent intent=new Intent(HomeActivity.this,SettingActivity.class);
             startActivity(intent);
-        }else if (id == R.id.nav_logout) {}
-
+        }else if (id == R.id.nav_logout) {
+            getSharedPreferences(Utils.SHARED_PREF_NAME,MODE_PRIVATE).edit().clear().apply();
+            Intent intent = new Intent(HomeActivity.this,LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        }
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
