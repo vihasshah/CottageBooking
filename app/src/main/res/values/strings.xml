@@ -45,4 +45,12 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="title_activity_search_by_category">SearchByCategory</string>
     <string name="action_settings">Setting</string>
+
+
+    <string-array name="hotel_category">
+        <item>Select Category</item>
+        <item>3 Star</item>
+        <item>5 Star</item>
+        <item>7 Star</item>
+    </string-array>
 </resources>

@@ -1,5 +1,6 @@
 package com.khushi.win10.cottagebooking;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -9,11 +10,19 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +31,9 @@ import com.khushi.win10.cottagebooking.Helpers.Utils;
 import com.khushi.win10.cottagebooking.Model.RentListModel;
 import com.khushi.win10.cottagebooking.Webservice.APICall;
 import com.khushi.win10.cottagebooking.Webservice.Callback;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -99,9 +111,8 @@ public class HomeActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
-            // return true;
-            Intent intent=new Intent(HomeActivity.this,SearchActivity.class);
-            startActivity(intent);
+            showSearchDialog();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
@@ -170,4 +181,106 @@ public class HomeActivity extends AppCompatActivity
             }
         }).execute();
     }
+
+    private void showSearchDialog() {
+        View searchDialogView = LayoutInflater.from(HomeActivity.this).inflate(R.layout.dialog_search, null);
+        final Spinner categorySpinner = searchDialogView.findViewById(R.id.dialog_category);
+        final EditText placeEt = searchDialogView.findViewById(R.id.dialog_place);
+        Button seachBtn = searchDialogView.findViewById(R.id.dialog_search_btn);
+        final Dialog dialog = new Dialog(this, R.style.DialogTheme);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(searchDialogView);
+        if (dialog.getWindow().getAttributes() != null){
+            dialog.getWindow().getAttributes().width = ViewGroup.LayoutParams.FILL_PARENT;
+            dialog.getWindow().getAttributes().height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        }
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        dialog.show();
+
+
+        seachBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(dialog.isShowing()) {
+                    dialog.dismiss();
+                }
+                int categorySelectedInt = 0;
+                String selectedPlace = placeEt.getText().toString().trim();
+                if(categorySpinner.getSelectedItemPosition() > 0) {
+                    categorySelectedInt = categorySpinner.getSelectedItemPosition();
+                }
+                if(selectedPlace.length() == 0) {
+                    selectedPlace = null;
+                }
+                // show progress bar
+                progressBar.setVisibility(View.VISIBLE);
+                listView.setVisibility(View.GONE);
+                emptyText.setVisibility(View.GONE);
+                //calling api
+                searchApiCall(categorySelectedInt,selectedPlace,dialog);
+            }
+        });
+    }
+
+    private void searchApiCall(int categoryPos, String selectedPlace, final Dialog dialog) {
+        String urlEndPoint = "?";
+        if(categoryPos > 0){
+            urlEndPoint = urlEndPoint + "id=" +categoryPos;
+        }
+        if (selectedPlace != null) {
+            urlEndPoint = urlEndPoint + "place="+selectedPlace;
+        }
+        String finalURL;
+        if(categoryPos <= 0 && selectedPlace == null) {
+            finalURL = Utils.COTTAGE_LIST_URL;
+        }else{
+            finalURL = Utils.COTTAGE_LIST_URL + urlEndPoint;
+        }
+
+        apiCall = new APICall(HomeActivity.this, finalURL, null, null, new Callback() {
+            @Override
+            public void onCallback(final String response) {
+                HomeActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if(dialog != null && dialog.isShowing()){
+                            dialog.dismiss();
+
+                        }
+                        progressBar.setVisibility(View.GONE);
+                        if(response != null){
+                            RentListModel model = new Gson().fromJson(response,RentListModel.class);
+                            if(model.getSuccess() == 1){
+                                if(model.getData().size() > 0) {
+                                    if (ObjectHolder.rentListModel.size() > 0) {
+                                        ObjectHolder.rentListModel.clear();
+                                    }
+                                    ObjectHolder.rentListModel.addAll(model.getData());
+
+                                    emptyText.setVisibility(View.GONE);
+                                    listView.setVisibility(View.VISIBLE);
+
+                                    CustomRentAdapter adapter = new CustomRentAdapter(HomeActivity.this, ObjectHolder.rentListModel);
+                                    listView.setAdapter(adapter);
+                                }else{
+                                    emptyText.setVisibility(View.VISIBLE);
+                                    listView.setVisibility(View.GONE);
+                                    emptyText.setText("No result found");
+                                }
+                            }else{
+                                emptyText.setVisibility(View.VISIBLE);
+                                listView.setVisibility(View.GONE);
+                                emptyText.setText(model.getMessage());
+                            }
+                        }else{
+                            Toast.makeText(HomeActivity.this, "No Data Found", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        }).execute();
+    }
+
+
 }

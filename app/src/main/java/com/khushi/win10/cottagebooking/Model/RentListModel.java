@@ -16,7 +16,7 @@ public class RentListModel {
 
     private int success;
     private String message;
-    private List<DataBean> data;
+    private List<DataBean> data = null;
 
     public int getSuccess() {
         return success;
