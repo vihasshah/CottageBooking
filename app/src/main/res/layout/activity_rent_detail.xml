@@ -61,7 +61,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:text="5/5"
                     android:textColor="@color/dark_green"
                     android:layout_alignParentEnd="true" />
 
@@ -191,9 +190,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Reviews"
+            android:layout_marginTop="12dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:id="@+id/detail_reviews_label"
+            android:textColor="@color/colorPrimaryDark"
             android:textAppearance="?android:attr/textAppearanceMedium"/>
 
         <android.support.v7.widget.RecyclerView
