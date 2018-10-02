@@ -1,37 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android" >
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_property_news_detail"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.khushi.win10.cottagebooking.PropertyNewsDetailActivity">
-
-    <ImageView
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/activity_property_news_detail"
         android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:scaleType="fitCenter"
-        android:background="@android:color/black"
-        android:id="@+id/img_pronewsdetails"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:text="Ahemdabad is Up-to-date on Infrastructure."
-        android:layout_marginTop="250dp"
-        android:textSize="25dp"
-        android:id="@+id/tv_title_pronewsdetails"
-        android:textColor="@color/colorPrimaryDark"
-        android:textStyle="bold"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="310dp"
-        android:id="@+id/tv_content_pronewsdetails"
-        android:textSize="20dp"
-        android:text="  A Progressive Quarter for Ahemdabad, the city, in fact the entire state move forward.Gujarat Housing Board will be upgrading 'e-nagar' portal in the coming 3-4 months.Gujarat leads the country when it comes to building affortable houses under the Pradhan Mantri Awas Yojana.The state has already built 59,515 houses for urban poor."/>
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:context="com.khushi.win10.cottagebooking.PropertyNewsDetailActivity">
 
-
-</RelativeLayout>
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:scaleType="fitCenter"
+            android:background="@android:color/black"
+            android:id="@+id/news_detail_image"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:id="@+id/news_detail_title"
+            android:textColor="@color/dark_grey"
+            android:textStyle="bold"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/news_detail_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@color/medium_grey"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"/>
+    </LinearLayout>
 </ScrollView>

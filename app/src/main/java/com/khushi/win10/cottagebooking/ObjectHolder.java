@@ -12,7 +12,7 @@ import java.util.List;
 
 public class ObjectHolder {
     public final static List<RentListModel.DataBean> rentListModel = new ArrayList<>();
-    public final static ArrayList<NewsModel.DataBean> newsModel = new ArrayList<>();
+    public final static List<NewsModel.DataBean> newsModel = new ArrayList<>();
 
 
 }
