@@ -1,6 +1,5 @@
 package com.khushi.win10.cottagebooking.Model;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -12,12 +11,12 @@ public class RentListModel{
     /**
      * success : 1
      * message : List Found
-     * data : [{"id":"2","name":"Harmonic Holidays","place":"Baroda","images":"https://im.proptiger.com/1/502090/80/safal-builder-rethal-greens-swimming-pool-760667.jpeg?width=800&height=620, https://media.gobymobile.com/mediaresources/venue/2012/gallery/large/753fb8a1-bfd5-44e5-87ca-673847145e32.jpg","available":"1","price":"3000","amenities":"Pool, Wifi","contact":"987654321","ratings":"5","category_id":"1","category":"3 Star","reviews":[{"review":"this is review for harmonic holidays","ratings":"4.5","date":"01-Sep-2018"},{"review":"this is review for harmonic holidays","ratings":"3","date":"01-Sep-2018"}]},{"id":"1","name":"Rethal Greens","place":"AHMEdabad","images":"https://im.proptiger.com/1/502090/80/safal-builder-rethal-greens-swimming-pool-760667.jpeg?width=800&height=620, https://media.gobymobile.com/mediaresources/venue/2012/gallery/large/753fb8a1-bfd5-44e5-87ca-673847145e32.jpg","available":"1","price":"3500","amenities":"Pool, Wifi, Outdoor Games, Indoor Games","contact":"1233465567","ratings":"5","category_id":"2","category":"5 Star","reviews":[{"review":"test is test review for rethel greens","ratings":"4","date":"01-Sep-2018"},{"review":"this is review for old rethel greens","ratings":"3","date":"01-Mar-2018"},{"review":"this is review for old rethel greens","ratings":"4.5","date":"01-May-2016"},{"review":"test review","ratings":"2","date":"26-Oct-2018"}]}]
+     * data : [{"id":"1","name":"Rethal Greens","place":"Ahmedabad","images":"/cottage/assets/img1.jpeg,/cottage/assets/rethal2.jpg,/cottage/assets/img1.jpeg,/cottage/assets/rethal2.jpg,/cottage/assets/img1.jpeg,/cottage/assets/rethal2.jpg,/cottage/assets/img1.jpeg,/cottage/assets/rethal2.jpg","available":"1","price":"3500","amenities":"Pool, Wifi, Outdoor Games, Indoor Games","contact":"1233465567","ratings":"5","blocked":"0","category_id":"2","category":"5 Star","reviews":[{"review":"test is test review for rethel greens","ratings":"4","date":"01 Sep, 2018"},{"review":"this is review for old rethel greens","ratings":"3","date":"01 Mar, 2018"},{"review":"this is review for old rethel greens","ratings":"4.5","date":"01 May, 2016"},{"review":"test review","ratings":"2","date":"26 Oct, 2018"}]},{"id":"2","name":"Harmonic Holidays","place":"Baroda","images":"/cottage/assets/img1.jpeg,/cottage/assets/rethal2.jpg","available":"1","price":"3000","amenities":"Pool, Wifi","contact":"987654321","ratings":"5","blocked":"0","category_id":"1","category":"3 Star","reviews":[{"review":"this is review for harmonic holidays","ratings":"4.5","date":"01 Sep, 2018"},{"review":"this is review for harmonic holidays","ratings":"3","date":"01 Sep, 2018"}]},{"id":"12","name":"test","place":"test","images":"/cottage/assets/6823b72e90bc8813c659c5023d13d002.jpg","available":"1","price":"123","amenities":"test","contact":"1231232","ratings":"5","blocked":"0","category_id":"1","category":"3 Star","reviews":[]}]
      */
 
     private int success;
     private String message;
-    private List<DataBean> data = null;
+    private List<DataBean> data;
 
     public int getSuccess() {
         return success;
@@ -45,18 +44,19 @@ public class RentListModel{
 
     public static class DataBean {
         /**
-         * id : 2
-         * name : Harmonic Holidays
-         * place : Baroda
-         * images : https://im.proptiger.com/1/502090/80/safal-builder-rethal-greens-swimming-pool-760667.jpeg?width=800&height=620, https://media.gobymobile.com/mediaresources/venue/2012/gallery/large/753fb8a1-bfd5-44e5-87ca-673847145e32.jpg
+         * id : 1
+         * name : Rethal Greens
+         * place : Ahmedabad
+         * images : /cottage/assets/img1.jpeg,/cottage/assets/rethal2.jpg,/cottage/assets/img1.jpeg,/cottage/assets/rethal2.jpg,/cottage/assets/img1.jpeg,/cottage/assets/rethal2.jpg,/cottage/assets/img1.jpeg,/cottage/assets/rethal2.jpg
          * available : 1
-         * price : 3000
-         * amenities : Pool, Wifi
-         * contact : 987654321
+         * price : 3500
+         * amenities : Pool, Wifi, Outdoor Games, Indoor Games
+         * contact : 1233465567
          * ratings : 5
-         * category_id : 1
-         * category : 3 Star
-         * reviews : [{"review":"this is review for harmonic holidays","ratings":"4.5","date":"01-Sep-2018"},{"review":"this is review for harmonic holidays","ratings":"3","date":"01-Sep-2018"}]
+         * blocked : 0
+         * category_id : 2
+         * category : 5 Star
+         * reviews : [{"review":"test is test review for rethel greens","ratings":"4","date":"01 Sep, 2018"},{"review":"this is review for old rethel greens","ratings":"3","date":"01 Mar, 2018"},{"review":"this is review for old rethel greens","ratings":"4.5","date":"01 May, 2016"},{"review":"test review","ratings":"2","date":"26 Oct, 2018"}]
          */
 
         private String id;
@@ -68,6 +68,7 @@ public class RentListModel{
         private String amenities;
         private String contact;
         private String ratings;
+        private String blocked;
         private String category_id;
         private String category;
         private List<ReviewsBean> reviews;
@@ -144,6 +145,14 @@ public class RentListModel{
             this.ratings = ratings;
         }
 
+        public String getBlocked() {
+            return blocked;
+        }
+
+        public void setBlocked(String blocked) {
+            this.blocked = blocked;
+        }
+
         public String getCategory_id() {
             return category_id;
         }
@@ -170,9 +179,9 @@ public class RentListModel{
 
         public static class ReviewsBean {
             /**
-             * review : this is review for harmonic holidays
-             * ratings : 4.5
-             * date : 01-Sep-2018
+             * review : test is test review for rethel greens
+             * ratings : 4
+             * date : 01 Sep, 2018
              */
 
             private String review;

@@ -161,8 +161,11 @@ public class HomeActivity extends AppCompatActivity
                                     if(ObjectHolder.rentListModel.size() > 0){
                                         ObjectHolder.rentListModel.clear();
                                     }
-                                    ObjectHolder.rentListModel.addAll(model.getData());
-
+                                    for(int i = 0; i < model.getData().size() ; i++){
+                                        if(model.getData().get(i).getBlocked().equals("0")) {
+                                            ObjectHolder.rentListModel.add(model.getData().get(i));
+                                        }
+                                    }
                                     emptyText.setVisibility(View.GONE);
                                     listView.setVisibility(View.VISIBLE);
 
