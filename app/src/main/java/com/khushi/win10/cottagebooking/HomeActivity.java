@@ -91,6 +91,12 @@ public class HomeActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
+            if(ObjectHolder.rentListModel.size() > 0){
+                ObjectHolder.rentListModel.clear();
+            }
+            if(ObjectHolder.newsModel.size() > 0){
+                ObjectHolder.newsModel.clear();
+            }
             this.finish();
         }
     }
@@ -112,6 +118,9 @@ public class HomeActivity extends AppCompatActivity
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
             showSearchDialog();
+            return true;
+        }else if(id == R.id.action_refresh){
+            cottageListApi();
             return true;
         }
 
