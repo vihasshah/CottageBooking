@@ -37,9 +37,6 @@
         <activity android:name=".FeedbackActivity" />
         <activity android:name=".AboutActivity" />
         <activity android:name=".PropertyNewsDetailActivity" />
-        <activity android:name=".SearchActivity" />
-        <activity android:name=".SearchByCategoryActivity" />
-        <activity android:name=".SearchByPlaceActivity" />
         <activity android:name=".PaymentActivity" />
         <activity android:name=".ForgotPassActivity" />
 
