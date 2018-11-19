@@ -18,6 +18,16 @@
         <item name="android:paddingBottom">12dp</item>
     </style>
 
+    <style name="PaymentEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:background">#20888888</item>
+        <item name="android:textColor">#aa555555</item>
+        <item name="android:textColorHint">#88555555</item>
+        <item name="android:paddingLeft">@dimen/activity_horizontal_margin</item>
+        <item name="android:paddingRight">@dimen/activity_horizontal_margin</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+    </style>
+
     <style name="LoginButton" parent="Widget.AppCompat.Button">
         <item name="android:background">@color/colorPrimary</item>
         <item name="android:textColor">@android:color/white</item>

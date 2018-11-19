@@ -1,5 +1,6 @@
 package com.khushi.win10.cottagebooking;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -8,8 +9,13 @@ import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -89,8 +95,9 @@ public class RentDetailActivity extends AppCompatActivity {
         btnbook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i=new Intent(RentDetailActivity.this,PaymentActivity.class);
-                startActivity(i);
+//                Intent i=new Intent(RentDetailActivity.this,PaymentActivity.class);
+//                startActivity(i);
+                showPaymentOptions();
             }
         });
     }
@@ -126,6 +133,42 @@ public class RentDetailActivity extends AppCompatActivity {
         reviewList = findViewById(R.id.detail_reviews_list);
         btnbook = findViewById(R.id.detail_book_btn);
         reviewsLabel = findViewById(R.id.detail_reviews_label);
+    }
+
+    private void showPaymentOptions(){
+        View paymentDialogView = LayoutInflater.from(RentDetailActivity.this).inflate(R.layout.dialog_payment_method, null);
+        final TextView creditOptTv = paymentDialogView.findViewById(R.id.dialog_payment_credit);
+        final TextView debitOptTv = paymentDialogView.findViewById(R.id.dialog_payment_debit);
+        final Dialog dialog = new Dialog(this, R.style.DialogTheme);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(paymentDialogView);
+        if (dialog.getWindow().getAttributes() != null){
+            dialog.getWindow().getAttributes().width = ViewGroup.LayoutParams.FILL_PARENT;
+            dialog.getWindow().getAttributes().height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        }
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        dialog.show();
+
+        creditOptTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                Intent intent = new Intent(RentDetailActivity.this,PaymentActivity.class);
+                intent.putExtra(Utils.INTENT_PAYMENT_BY,Utils.BY_CREDIT_CARD);
+                startActivity(intent);
+            }
+        });
+
+        debitOptTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                Intent intent = new Intent(RentDetailActivity.this,PaymentActivity.class);
+                intent.putExtra(Utils.INTENT_PAYMENT_BY,Utils.BY_DEBIT_CARD);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
