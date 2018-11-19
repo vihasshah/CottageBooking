@@ -6,11 +6,10 @@ package com.khushi.win10.cottagebooking.Model;
 
 public class LoginModel {
 
-
     /**
      * success : 1
      * message : Authentication successful
-     * data : {"id":"1","firstname":"email","lastname":"email","contact":"123456789","email":"email@email.com"}
+     * data : {"id":"1","firstname":"vihas","lastname":"shah","contact":"123456789","email":"vihas@vihas.com","blocked":"0"}
      */
 
     private int success;
@@ -44,10 +43,11 @@ public class LoginModel {
     public static class DataBean {
         /**
          * id : 1
-         * firstname : email
-         * lastname : email
+         * firstname : vihas
+         * lastname : shah
          * contact : 123456789
-         * email : email@email.com
+         * email : vihas@vihas.com
+         * blocked : 0
          */
 
         private String id;
@@ -55,6 +55,7 @@ public class LoginModel {
         private String lastname;
         private String contact;
         private String email;
+        private String blocked = "1";
 
         public String getId() {
             return id;
@@ -94,6 +95,14 @@ public class LoginModel {
 
         public void setEmail(String email) {
             this.email = email;
+        }
+
+        public String getBlocked() {
+            return blocked;
+        }
+
+        public void setBlocked(String blocked) {
+            this.blocked = blocked;
         }
     }
 }
