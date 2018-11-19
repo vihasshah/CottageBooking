@@ -28,7 +28,6 @@
             android:name=".HomeActivity"
             android:label="Cottage Booking"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".MainRentListActivity" />
         <activity android:name=".RentDetailActivity" />
         <activity android:name=".ManageAccountActivity" />
         <activity android:name=".PropertynewsActivity" />
