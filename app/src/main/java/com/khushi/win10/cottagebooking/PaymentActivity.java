@@ -8,6 +8,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -15,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.khushi.win10.cottagebooking.Helpers.Utils;
+
+import java.util.ArrayList;
 
 public class PaymentActivity extends AppCompatActivity {
 
@@ -48,6 +51,13 @@ public class PaymentActivity extends AppCompatActivity {
             cvvNoEt.setVisibility(View.GONE);
         }
 
+        ArrayList<Integer> yearList = new ArrayList<>();
+        for(int i = 0; i < 25; i++){
+            yearList.add(2018+i);
+        }
+        ArrayAdapter aa = new ArrayAdapter(PaymentActivity.this,android.R.layout.simple_spinner_item,yearList);
+        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        expYear.setAdapter(aa);
         cardNoEt.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
