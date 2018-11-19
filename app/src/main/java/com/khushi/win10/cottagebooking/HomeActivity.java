@@ -140,7 +140,7 @@ public class HomeActivity extends AppCompatActivity
             Intent intent=new Intent(HomeActivity.this,PropertynewsActivity.class);
             startActivity(intent);
         } else if (id == R.id.nav_settings) {
-            Intent intent=new Intent(HomeActivity.this,SettingActivity.class);
+            Intent intent=new Intent(HomeActivity.this,AboutActivity.class);
             startActivity(intent);
         }else if (id == R.id.nav_logout) {
             getSharedPreferences(Utils.SHARED_PREF_NAME,MODE_PRIVATE).edit().clear().apply();

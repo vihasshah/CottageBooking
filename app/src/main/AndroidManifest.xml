@@ -31,7 +31,6 @@
         <activity android:name=".RentDetailActivity" />
         <activity android:name=".ManageAccountActivity" />
         <activity android:name=".PropertynewsActivity" />
-        <activity android:name=".SettingActivity" />
         <activity android:name=".UpdateAccountActivity" />
         <activity android:name=".ChangePasswordActivity" />
         <activity android:name=".FeedbackActivity" />
