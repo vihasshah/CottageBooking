@@ -2,6 +2,9 @@ package com.khushi.win10.cottagebooking.Helpers;
 
 import android.util.Log;
 
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 public class Utils {
     // shared preference constants
     public static final String SHARED_PREF_NAME = "CottageBooking";
@@ -36,4 +39,16 @@ public class Utils {
         }
         return images;
     }
+
+
+
+    public static int getDaysDifference(Date fromDate,Date toDate)
+    {
+        if(fromDate==null||toDate==null)
+            return 0;
+
+        return (int)( (toDate.getTime() - fromDate.getTime()) / (1000 * 60 * 60 * 24));
+    }
+
+
 }

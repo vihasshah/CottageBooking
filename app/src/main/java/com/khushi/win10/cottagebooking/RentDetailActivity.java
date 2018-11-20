@@ -1,5 +1,6 @@
 package com.khushi.win10.cottagebooking;
 
+import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -25,6 +27,12 @@ import com.khushi.win10.cottagebooking.Helpers.Utils;
 import com.khushi.win10.cottagebooking.Model.RentListModel;
 import com.squareup.picasso.Picasso;
 
+import org.joda.time.Days;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class RentDetailActivity extends AppCompatActivity {
@@ -33,7 +41,10 @@ public class RentDetailActivity extends AppCompatActivity {
     private Button btnbook;
     private String[] imageList;
     private RecyclerView horizontalList,reviewList;
-
+    private RentListModel.DataBean bean = null;
+    private String dbStartDate = null;
+    private String dbEndDate = null;
+    private String finalMoneyToPay = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +54,7 @@ public class RentDetailActivity extends AppCompatActivity {
         //get clicked position
         int position = getIntent().getIntExtra(Utils.INTENT_POSITION,-1);
         // get data model from object holder
-        RentListModel.DataBean bean = ObjectHolder.rentListModel.get(position);
+        bean = ObjectHolder.rentListModel.get(position);
 
         getSupportActionBar().setTitle(bean.getName());
 
@@ -97,7 +108,7 @@ public class RentDetailActivity extends AppCompatActivity {
             public void onClick(View v) {
 //                Intent i=new Intent(RentDetailActivity.this,PaymentActivity.class);
 //                startActivity(i);
-                showPaymentOptions();
+                showBookSelections();
             }
         });
     }
@@ -135,6 +146,7 @@ public class RentDetailActivity extends AppCompatActivity {
         reviewsLabel = findViewById(R.id.detail_reviews_label);
     }
 
+    //payment dialog
     private void showPaymentOptions(){
         View paymentDialogView = LayoutInflater.from(RentDetailActivity.this).inflate(R.layout.dialog_payment_method, null);
         final TextView creditOptTv = paymentDialogView.findViewById(R.id.dialog_payment_credit);
@@ -169,6 +181,95 @@ public class RentDetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+    }
+
+    // show booking pickers dialog
+    private void showBookSelections(){
+        View bookSelDialogView = LayoutInflater.from(RentDetailActivity.this).inflate(R.layout.dialog_booking_selection, null);
+        final TextView startDateTv = bookSelDialogView.findViewById(R.id.book_sel_start_date);
+        final TextView endDateTv = bookSelDialogView.findViewById(R.id.book_sel_end_date);
+        final TextView finalPriceTv = bookSelDialogView.findViewById(R.id.book_sel_price);
+        final TextView payBtn = bookSelDialogView.findViewById(R.id.book_sel_btn_pay_now);
+
+        final Dialog dialog = new Dialog(this, R.style.DialogTheme);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(bookSelDialogView);
+        if (dialog.getWindow().getAttributes() != null){
+            dialog.getWindow().getAttributes().width = ViewGroup.LayoutParams.FILL_PARENT;
+            dialog.getWindow().getAttributes().height = ViewGroup.LayoutParams.WRAP_CONTENT;
+        }
+        dialog.getWindow().setGravity(Gravity.BOTTOM);
+        dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+        dialog.show();
+
+        startDateTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePicker(finalPriceTv,startDateTv,true);
+            }
+        });
+
+        endDateTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePicker(finalPriceTv,endDateTv,false);
+            }
+        });
+
+        payBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                showPaymentOptions();
+            }
+        });
+    }
+
+    // startDate Variable to set db date according to variable
+    private void showDatePicker(final TextView priceTv,final TextView textView, final boolean startDate){
+        Calendar calendar = Calendar.getInstance();
+        int mYear = calendar.get(Calendar.YEAR);
+        int mMonth = calendar.get(Calendar.MONTH);
+        int mDay = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+
+                    @Override
+                    public void onDateSet(DatePicker view, int year,
+                                          int monthOfYear, int dayOfMonth) {
+                        String displayDate = dayOfMonth + "-" + (monthOfYear + 1) + "-" + year;
+                        if(startDate) {
+                            dbStartDate = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
+                        }else{
+                            dbEndDate = year + "-" + (monthOfYear + 1) + "-" + dayOfMonth;
+                        }
+
+                        //calculate days of stay and show final price
+                        if(dbStartDate != null && dbEndDate != null){
+                            try {
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                                Date startDate = sdf.parse(dbStartDate);
+                                Date endDate = sdf.parse(dbEndDate);
+                                int days = Utils.getDaysDifference(startDate,endDate);
+                                // handle zero value
+                                if(days == 0){
+                                    days = 1;
+                                }
+                                String updatedPrice = String.valueOf(Integer.valueOf(bean.getPrice()) * days);
+                                Utils.log(String.valueOf(days));
+                                priceTv.setText(updatedPrice);
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
+
+                        }
+                        textView.setText(displayDate);
+
+                    }
+                }, mYear, mMonth, mDay);
+        datePickerDialog.show();
     }
 
     @Override
