@@ -19,10 +19,14 @@ public class Utils {
     public static final String NEWS_LIST_URL ="http://"+SERVER_URL+"/cottage/api/news_list.php";
     public static final String UPDATE_INFO_URL ="http://"+SERVER_URL+"/cottage/api/update_info.php";
     public static final String RESET_PASS_URL ="http://"+SERVER_URL+"/cottage/api/reset_password.php";
+    public static final String BOOK_URL ="http://"+SERVER_URL+"/cottage/api/book_cottage.php";
 
     // intent constants
     public static final String INTENT_POSITION = "INTENT_POSITION";
     public static final String INTENT_PAYMENT_BY = "intent_payment_by";
+    public static final String INTENT_COTTAGE_ID = "INTENT_COTTAGE_ID";
+    public static final String INTENT_START_DATE = "INTENT_START_DATE";
+    public static final String INTENT_END_DATE = "INTENT_END_DATE";
     public static final int BY_CREDIT_CARD = 0;
     public static final int BY_DEBIT_CARD = 1;
 

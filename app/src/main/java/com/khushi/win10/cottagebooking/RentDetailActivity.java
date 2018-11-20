@@ -166,6 +166,9 @@ public class RentDetailActivity extends AppCompatActivity {
                 dialog.dismiss();
                 Intent intent = new Intent(RentDetailActivity.this,PaymentActivity.class);
                 intent.putExtra(Utils.INTENT_PAYMENT_BY,Utils.BY_CREDIT_CARD);
+                intent.putExtra(Utils.INTENT_COTTAGE_ID,bean.getId());
+                intent.putExtra(Utils.INTENT_START_DATE,dbStartDate);
+                intent.putExtra(Utils.INTENT_END_DATE,dbEndDate);
                 startActivity(intent);
             }
         });
@@ -176,6 +179,9 @@ public class RentDetailActivity extends AppCompatActivity {
                 dialog.dismiss();
                 Intent intent = new Intent(RentDetailActivity.this,PaymentActivity.class);
                 intent.putExtra(Utils.INTENT_PAYMENT_BY,Utils.BY_DEBIT_CARD);
+                intent.putExtra(Utils.INTENT_COTTAGE_ID,bean.getId());
+                intent.putExtra(Utils.INTENT_START_DATE,dbStartDate);
+                intent.putExtra(Utils.INTENT_END_DATE,dbEndDate);
                 startActivity(intent);
             }
         });
@@ -256,6 +262,7 @@ public class RentDetailActivity extends AppCompatActivity {
                                     days = 1;
                                 }
                                 String updatedPrice = String.valueOf(Integer.valueOf(bean.getPrice()) * days);
+
                                 Utils.log(String.valueOf(days));
                                 priceTv.setText(updatedPrice);
                             } catch (ParseException e) {
