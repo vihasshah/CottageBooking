@@ -27,8 +27,6 @@ import com.khushi.win10.cottagebooking.Helpers.Utils;
 import com.khushi.win10.cottagebooking.Model.RentListModel;
 import com.squareup.picasso.Picasso;
 
-import org.joda.time.Days;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
